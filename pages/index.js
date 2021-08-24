@@ -10,7 +10,7 @@ import ToDoCard from '../components/ToDoCard';
 import styles from '../styles/Home.module.css';
 
 export async function getServerSideProps() {
-  const response = await fetch( `http://localhost:${ process.env.API_PORT }/todos` );
+  const response = await fetch( `http://localhost:${ 3001 }/todos` );
   const todos = await response.json();
   if ( !todos ) return { notFound: true };
   return { props: { todos } };
