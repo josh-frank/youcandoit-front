@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import AddToDoForm from '../components/AddToDoForm';
 
-import HomeFooter from '../components/HomeFooter';
+// import HomeFooter from '../components/HomeFooter';
 
 import styles from '../styles/Home.module.css';
 
