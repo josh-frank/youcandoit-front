@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import homeStyles from '../styles/Home.module.css';
 
-const AddToDoForm = ( { setAllTodos } ) => {
+const AddToDoForm = ( { setTodosToDisplay } ) => {
 
     const [ toDoFormState, setToDoFormState ] = useState( "" );
 
@@ -17,7 +17,7 @@ const AddToDoForm = ( { setAllTodos } ) => {
         } )
             .then( response => response.json() )
             .then( newToDo => {
-                setAllTodos( state => [ ...state, newToDo ] );
+                setTodosToDisplay( state => [ ...state, newToDo ] );
                 setToDoFormState( "" );
             } );
     };

@@ -1,6 +1,9 @@
 import Head from 'next/head';
+
 import { useState } from 'react';
+
 import AddToDoForm from '../components/AddToDoForm';
+import ToDoCard from '../components/ToDoCard';
 
 // import HomeFooter from '../components/HomeFooter';
 
@@ -13,20 +16,18 @@ export async function getServerSideProps() {
   return { props: { todos } };
 }
 
-const ToDoCard = ( { todo } ) => <div className={ styles.card }>
-  <h2>{ todo.content }</h2>
+const ToDoCards = ( { todos, setTodosToDisplay } ) => <div className={ styles.grid }>
+  { todos.map( todo => <ToDoCard
+    key={ todo.id }
+    todo={ todo }
+    allTodos={ todos }
+    setTodosToDisplay={ setTodosToDisplay }
+  /> ) }
 </div>;
-
-const ToDoCards = ( { todos } ) => {
-  console.log( todos );
-  return <div className={ styles.grid }>
-    { todos.map( todo => <ToDoCard key={ todo.id } todo={ todo } /> ) }
-  </div>
-};
 
 export default function Home( { todos } ) {
 
-  const [ allTodos, setAllTodos ] = useState( todos || [] );
+  const [ todosToDisplay, setTodosToDisplay ] = useState( todos || [] );
 
   return <div className={ styles.container }>
 
@@ -46,9 +47,9 @@ export default function Home( { todos } ) {
           There's so much to do! I believe in you!
         </p>
 
-        <AddToDoForm setAllTodos={ setAllTodos } />
+        <AddToDoForm setTodosToDisplay={ setTodosToDisplay } />
 
-        <ToDoCards todos={ allTodos } />
+        <ToDoCards todos={ todosToDisplay } setTodosToDisplay={ setTodosToDisplay } />
 
       </main>
 
