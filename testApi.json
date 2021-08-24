@@ -1,0 +1,34 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "Finish front end",
+      "finished": false
+    },
+    {
+      "id": 2,
+      "content": "Install pg gem",
+      "finished": false
+    },
+    {
+      "id": 3,
+      "content": "Start back end",
+      "finished": false
+    },
+    {
+      "content": "Cure cancer",
+      "finished": false,
+      "id": 4
+    },
+    {
+      "content": "Build spaceship",
+      "finished": false,
+      "id": 5
+    },
+    {
+      "content": "Start a tailoring business",
+      "finished": false,
+      "id": 6
+    }
+  ]
+}

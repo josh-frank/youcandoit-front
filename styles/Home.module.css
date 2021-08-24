@@ -78,6 +78,11 @@
   margin-top: 3rem;
 }
 
+.form {
+  display: flex;
+  flex-direction: row;
+}
+
 .card {
   margin: 1rem;
   padding: 1.5rem;
