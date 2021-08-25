@@ -22,7 +22,7 @@ const ToDoCards = () => {
       todo={ todo }
       allTodos={ data }
     /> ) }
-  </div>
+  </div>;
 };
 
 export default function Home() {
