@@ -102,24 +102,13 @@
 }
 
 .complete {
-  color: limegreen;
-  border-color: limegreen;
+  color: darkgreen;
+  border-color: darkgreen;
 }
 
 .incomplete {
-  color: orangered;
-  border-color: orangered;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+  color: darkred;
+  border-color: darkred;
 }
 
 .card input {

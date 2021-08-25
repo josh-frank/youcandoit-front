@@ -1,7 +1,41 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import styled, { keyframes } from 'styled-components';
 
 import homeStyles from '../styles/Home.module.css';
+
+const toDoStyledAnimation = () => keyframes`
+    0% { transform: rotate( 0deg ); }
+    33% { transform: rotate( -5deg ); }
+    66% { transform: rotate( 5deg ); }
+    100% { transform: rotate( 0deg ); }
+`;
+
+const StyledToDo = styled.div`
+    margin: 1rem;
+    padding: 1.5rem;
+    text-align: left;
+    background: ${ ( { finished } ) => finished ? "darkgreen" : "darkred" };
+    color: white;
+    text-decoration: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: box-shadow 0.05s ease;
+    width: 45%;
+    &:hover, &:active, &:focus {
+        animation: ${ toDoStyledAnimation() } 0.15s linear;
+    }
+`;
+
+const StyledContentField = styled.textarea`
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: x-large;
+    font-weight: bold;
+    color: inherit;
+    resize: none;
+`;
 
 const saveToDoEdit = async ( { toDoEdits } ) => {
     const response = await fetch( `http://localhost:${ 3001 }/todos/${ toDoEdits.id }`, {
@@ -26,7 +60,7 @@ const deleteToDo = async ( { toDoEdits } ) => {
     return response.json();
 };
 
-const ToDoCard = ( { todo, allTodos, setTodosToDisplay } ) => {
+const ToDoCard = ( { todo } ) => {
 
     const queryClient = new useQueryClient();
 
@@ -69,8 +103,9 @@ const ToDoCard = ( { todo, allTodos, setTodosToDisplay } ) => {
         }
     } );
 
-    return <div className={ homeStyles.card } >
-        <input
+    return <StyledToDo finished={ todo.finished }>
+        <StyledContentField
+            cols={ 15 }
             value={ toDoEdits.content }
             onChange={ changeEvent => setToDoEdits( { ...toDoEdits, content: changeEvent.target.value } ) }
         />
@@ -96,7 +131,7 @@ const ToDoCard = ( { todo, allTodos, setTodosToDisplay } ) => {
         } }>
             ❌Delete
         </button>
-    </div>;
+    </StyledToDo>;
 
 };
 
