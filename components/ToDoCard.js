@@ -52,7 +52,7 @@ const StyledToDoButton = styled.button`
 `;
 
 const saveToDoEdit = async ( { toDoEdits } ) => {
-    const response = await fetch( `http://localhost:${ 3001 }/todos/${ toDoEdits.id }`, {
+    const response = await fetch( `http://localhost:${ 3001 }/todos/content/${ toDoEdits.id }`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( { content: toDoEdits.content } )
@@ -61,11 +61,7 @@ const saveToDoEdit = async ( { toDoEdits } ) => {
 };
 
 const toggleFinished = async ( { toDoEdits } ) => {
-    const response = await fetch( `http://localhost:${ 3001 }/todos/${ toDoEdits.id }`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify( { finished: !toDoEdits.finished } )
-    } );
+    const response = await fetch( `http://localhost:${ 3001 }/todos/finished/${ toDoEdits.id }`, { method: "PATCH" } );
     return response.json();
 };
 
@@ -131,7 +127,9 @@ const ToDoCard = ( { todo } ) => {
         <StyledToDoButton
             finished={ todo.finished }
             onClick={ () => {
-                try { toggleFinishedMutation.mutate( { toDoEdits } ); }
+                try {
+                    toggleFinishedMutation.mutate( { toDoEdits } );
+                }
                 catch ( error ) { console.log( error ); }
             } }
         >
@@ -140,7 +138,9 @@ const ToDoCard = ( { todo } ) => {
         <StyledToDoButton
             finished={ todo.finished }
             onClick={ () => {
-                try { saveMutation.mutate( { toDoEdits } ); }
+                try {
+                    saveMutation.mutate( { toDoEdits } );
+                }
                 catch ( error ) { console.log( error ); }
             } }
         >
@@ -149,7 +149,10 @@ const ToDoCard = ( { todo } ) => {
         <StyledToDoButton
             finished={ todo.finished }
             onClick={ () => {
-                try { deleteMutation.mutate( { toDoEdits } ) }
+                try {
+                    setToDoEdits( { ...toDoEdits, finished: !toDoEdits.finished } );
+                    deleteMutation.mutate( { toDoEdits } );
+                }
                 catch ( error ) { console.log( error ); }
             } }
         >
