@@ -2,12 +2,7 @@ import { useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 
-import styled from 'styled-components';
-
-const StyledForm = styled.form`
-    display: flex;
-    flex-direction: row;
-`;
+import { StyledForm } from "../styles/homeStyles";
 
 const handleSubmission = async ( { toDoFormState } ) => {
     const response = await fetch( `http://localhost:${ 3001 }/todos`, {

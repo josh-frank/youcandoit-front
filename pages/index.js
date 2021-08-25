@@ -2,45 +2,12 @@ import Head from 'next/head';
 
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
-import styled from 'styled-components';
-
 import AddToDoForm from '../components/AddToDoForm';
 import ToDoCard from '../components/ToDoCard';
 
 // import HomeFooter from '../components/HomeFooter';
 
-const StyledContainer = styled.div`
-  background-image: linear-gradient( #77F7F7, #DDFFFF );
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const StyledMain = styled.main`
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledGrid = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
-  @media ( max-width: 600px ) {
-    width: 100%;
-    flex-direction: column;
-  }
-`;
+import { StyledGrid, StyledContainer, StyledMain } from "../styles/homeStyles"
 
 const queryClient = new QueryClient();
 

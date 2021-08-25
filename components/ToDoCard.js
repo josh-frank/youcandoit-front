@@ -1,55 +1,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import styled, { keyframes } from 'styled-components';
-
-const toDoStyledAnimation = () => keyframes`
-    0% { transform: rotate( 0deg ); }
-    33% { transform: rotate( -5deg ); }
-    66% { transform: rotate( 5deg ); }
-    100% { transform: rotate( 0deg ); }
-`;
-
-const StyledToDo = styled.div`
-    margin: 1rem;
-    padding: 1.5rem;
-    text-align: left;
-    background: ${ ( { finished } ) => finished ? "darkgreen" : "darkred" };
-    color: white;
-    text-decoration: none;
-    border: 1px solid #eaeaea;
-    border-radius: 10px;
-    transition: box-shadow 0.05s ease;
-    width: 45%;
-    &:hover, &:active, &:focus {
-        animation: ${ toDoStyledAnimation() } 0.15s linear;
-    }
-`;
-
-const StyledToDoContentField = styled.textarea`
-    border: none;
-    background: none;
-    font-family: inherit;
-    font-size: x-large;
-    font-weight: bold;
-    color: inherit;
-    resize: none;
-`;
-
-const StyledToDoButton = styled.button`
-    border: none;
-    background: white;
-    color: ${ ( { finished } ) => finished ? "darkgreen" : "darkred" };
-    border-radius: 3px;
-    font-family: inherit;
-    font-size: 10pt;
-    font-weight: bold;
-    margin: 3px;
-    transition: transform 0.15s linear;
-    &:hover, &:active, &:focus {
-        transform: scale( 1.1 );
-    }
-`;
+import { toDoStyledAnimation, StyledToDo, StyledToDoContentField, StyledToDoButton } from "../styles/homeStyles";
 
 const saveToDoEdit = async ( { toDoEdits } ) => {
     const response = await fetch( `http://localhost:${ 3001 }/todos/content/${ toDoEdits.id }`, {
