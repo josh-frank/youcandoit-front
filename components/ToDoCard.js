@@ -27,7 +27,7 @@ const StyledToDo = styled.div`
     }
 `;
 
-const StyledContentField = styled.textarea`
+const StyledToDoContentField = styled.textarea`
     border: none;
     background: none;
     font-family: inherit;
@@ -35,6 +35,21 @@ const StyledContentField = styled.textarea`
     font-weight: bold;
     color: inherit;
     resize: none;
+`;
+
+const StyledToDoButton = styled.button`
+    border: none;
+    background: white;
+    color: ${ ( { finished } ) => finished ? "darkgreen" : "darkred" };
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 10pt;
+    font-weight: bold;
+    margin: 3px;
+    transition: transform 0.15s linear;
+    &:hover, &:active, &:focus {
+        transform: scale( 1.1 );
+    }
 `;
 
 const saveToDoEdit = async ( { toDoEdits } ) => {
@@ -104,8 +119,9 @@ const ToDoCard = ( { todo } ) => {
     } );
 
     return <StyledToDo finished={ todo.finished }>
-        <StyledContentField
+        <StyledToDoContentField
             cols={ 15 }
+            rows={ todo.content.length / 15 }
             value={ toDoEdits.content }
             onChange={ changeEvent => setToDoEdits( { ...toDoEdits, content: changeEvent.target.value } ) }
         />
@@ -113,24 +129,33 @@ const ToDoCard = ( { todo } ) => {
             <b>{ todo.finished ? "COMPLETE: " : "INCOMPLETE: " }</b>
             { todo.finished ? "I knew you could do it!" : "Let's do it!" }
         </div>
-        <button onClick={ () => {
-            try { toggleFinishedMutation.mutate( { toDoEdits } ); }
-            catch ( error ) { console.log( error ); }
-        } }>
-            { todo.finished ? "🕒Mark unfinished" : "✨Mark finished" }
-        </button>
-        <button onClick={ () => {
-            try { saveMutation.mutate( { toDoEdits } ); }
-            catch ( error ) { console.log( error ); }
-        } }>
-            💾Save
-        </button>
-        <button onClick={ () => {
-            try { deleteMutation.mutate( { toDoEdits } ) }
-            catch ( error ) { console.log( error ); }
-        } }>
-            ❌Delete
-        </button>
+        <StyledToDoButton
+            finished={ todo.finished }
+            onClick={ () => {
+                try { toggleFinishedMutation.mutate( { toDoEdits } ); }
+                catch ( error ) { console.log( error ); }
+            } }
+        >
+            { todo.finished ? "🕒 MARK UNFINISHED" : "✨ MARK FINISHED" }
+        </StyledToDoButton>
+        <StyledToDoButton
+            finished={ todo.finished }
+            onClick={ () => {
+                try { saveMutation.mutate( { toDoEdits } ); }
+                catch ( error ) { console.log( error ); }
+            } }
+        >
+            💾 SAVE
+        </StyledToDoButton>
+        <StyledToDoButton
+            finished={ todo.finished }
+            onClick={ () => {
+                try { deleteMutation.mutate( { toDoEdits } ) }
+                catch ( error ) { console.log( error ); }
+            } }
+        >
+            ❌ DELETE
+        </StyledToDoButton>
     </StyledToDo>;
 
 };
