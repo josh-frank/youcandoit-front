@@ -1,30 +1,45 @@
 import { useState } from 'react';
+
+import { useMutation, useQueryClient } from 'react-query';
+
 import homeStyles from '../styles/Home.module.css';
 
-const AddToDoForm = ( { setTodosToDisplay } ) => {
+const handleSubmission = async ( { toDoFormState } ) => {
+    const response = await fetch( `http://localhost:${ 3001 }/todos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify( {
+            user_id: 1,
+            content: toDoFormState,
+            finished: false
+        } )
+    } );
+    return response.json();
+};
+
+const AddToDoForm = () => {
+
+    const queryClient = useQueryClient();
 
     const [ toDoFormState, setToDoFormState ] = useState( "" );
 
-    const handleSubmission = async submissionEvent => {
-        submissionEvent.preventDefault();
-        await fetch( `http://localhost:${ 3001 }/todos`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify( {
-                content: toDoFormState,
-                finished: false
-            } )
-        } )
-            .then( response => response.json() )
-            .then( newToDo => {
-                setTodosToDisplay( state => [ ...state, newToDo ] );
-                setToDoFormState( "" );
-            } );
-    };
+    const { mutate } = useMutation( handleSubmission, {
+        onSuccess: async newToDo => {
+            setToDoFormState( "" );
+            await queryClient.cancelQueries( "todos" );
+            const previousValue = queryClient.getQueryData( "todos" );
+            queryClient.setQueryData( "todos", previousQueryData => [...previousQueryData, newToDo ] );
+            return previousValue;
+        },
+    } );
 
     return <form
         className={ homeStyles.form }
-        onSubmit={ handleSubmission }
+        onSubmit={ async submissionEvent => {
+            submissionEvent.preventDefault();
+            try { mutate( { toDoFormState } ); }
+            catch ( error ) { console.log( error ); }
+        } }
     >
         <input
             value={ toDoFormState }

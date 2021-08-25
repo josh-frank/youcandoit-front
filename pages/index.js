@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
 import AddToDoForm from '../components/AddToDoForm';
 import ToDoCard from '../components/ToDoCard';
@@ -9,27 +9,26 @@ import ToDoCard from '../components/ToDoCard';
 
 import styles from '../styles/Home.module.css';
 
-export async function getServerSideProps() {
-  const response = await fetch( `http://localhost:${ 3001 }/todos` );
-  const todos = await response.json();
-  if ( !todos ) return { notFound: true };
-  return { props: { todos } };
-}
+const queryClient = new QueryClient();
 
-const ToDoCards = ( { todos, setTodosToDisplay } ) => <div className={ styles.grid }>
-  { todos.map( todo => <ToDoCard
-    key={ todo.id }
-    todo={ todo }
-    allTodos={ todos }
-    setTodosToDisplay={ setTodosToDisplay }
-  /> ) }
-</div>;
+const ToDoCards = () => {
+  const { isLoading, data } = useQuery( "todos", async () => {
+    const response = await fetch( `http://localhost:${ 3001 }/todos` );
+    return response.json();
+  } );
+  return <div className={ styles.grid }>
+    { isLoading ? "Loading..." : data.map( todo => <ToDoCard
+      key={ todo.id }
+      todo={ todo }
+      allTodos={ data }
+    /> ) }
+  </div>
+};
 
-export default function Home( { todos } ) {
+export default function Home() {
 
-  const [ todosToDisplay, setTodosToDisplay ] = useState( todos || [] );
-
-  return <div className={ styles.container }>
+  return <QueryClientProvider client={ queryClient }>
+    <div className={ styles.container }>
 
       <Head>
         <title>You can do it!</title>
@@ -47,14 +46,15 @@ export default function Home( { todos } ) {
           There's so much to do! I believe in you!
         </p>
 
-        <AddToDoForm setTodosToDisplay={ setTodosToDisplay } />
-
-        <ToDoCards todos={ todosToDisplay } setTodosToDisplay={ setTodosToDisplay } />
+        <AddToDoForm />
+        
+        <ToDoCards />
 
       </main>
 
       {/* <HomeFooter /> */}
 
-    </div>;
+    </div>
+  </QueryClientProvider>;
 
 }
