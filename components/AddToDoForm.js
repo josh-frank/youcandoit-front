@@ -2,7 +2,12 @@ import { useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 
-import homeStyles from '../styles/Home.module.css';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: row;
+`;
 
 const handleSubmission = async ( { toDoFormState } ) => {
     const response = await fetch( `http://localhost:${ 3001 }/todos`, {
@@ -33,8 +38,7 @@ const AddToDoForm = () => {
         },
     } );
 
-    return <form
-        className={ homeStyles.form }
+    return <StyledForm
         onSubmit={ async submissionEvent => {
             submissionEvent.preventDefault();
             try { mutate( { toDoFormState } ); }
@@ -47,7 +51,7 @@ const AddToDoForm = () => {
             onChange={ changeEvent => setToDoFormState( changeEvent.target.value ) }
         />
         <input type="submit" value="Do it!" />
-    </form>;
+    </StyledForm>;
 
 };
 

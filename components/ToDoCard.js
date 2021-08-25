@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import styled, { keyframes } from 'styled-components';
 
-import homeStyles from '../styles/Home.module.css';
+import styled, { keyframes } from 'styled-components';
 
 const toDoStyledAnimation = () => keyframes`
     0% { transform: rotate( 0deg ); }
@@ -112,7 +111,7 @@ const ToDoCard = ( { todo } ) => {
             await queryClient.cancelQueries( "todos" );
             queryClient.setQueryData( "todos", previousQueryData => {
                 console.log(previousQueryData)
-                return previousQueryData.filter( eachToDo => eachToDo.id !== previousQueryData.id );
+                return previousQueryData.filter( eachToDo => eachToDo.id !== deletedToDo.id );
             } );
             return deletedToDo;
         }
@@ -125,7 +124,7 @@ const ToDoCard = ( { todo } ) => {
             value={ toDoEdits.content }
             onChange={ changeEvent => setToDoEdits( { ...toDoEdits, content: changeEvent.target.value } ) }
         />
-        <div className={ homeStyles.finished }>
+        <div style={ { fontSize: "small", fontStyle: "italic" } }>
             <b>{ todo.finished ? "COMPLETE: " : "INCOMPLETE: " }</b>
             { todo.finished ? "I knew you could do it!" : "Let's do it!" }
         </div>
