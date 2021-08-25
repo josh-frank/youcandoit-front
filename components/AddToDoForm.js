@@ -42,6 +42,7 @@ const AddToDoForm = () => {
         } }
     >
         <input
+            required
             value={ toDoFormState }
             onChange={ changeEvent => setToDoFormState( changeEvent.target.value ) }
         />
