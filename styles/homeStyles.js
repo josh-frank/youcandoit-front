@@ -5,7 +5,7 @@ export const StyledContainer = styled.div`
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   height: 100vh;
 `;
@@ -15,7 +15,7 @@ export const StyledMain = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
 `;
 
@@ -32,7 +32,7 @@ export const StyledGrid = styled.div`
   }
 `;
 
-export const toDoStyledAnimation = () => keyframes`
+const toDoStyledAnimation = () => keyframes`
     0% { transform: rotate( 0deg ); }
     33% { transform: rotate( -5deg ); }
     66% { transform: rotate( 5deg ); }
@@ -48,7 +48,7 @@ export const StyledToDo = styled.div`
     text-decoration: none;
     border: 1px solid #eaeaea;
     border-radius: 10px;
-    transition: box-shadow 0.05s ease;
+    transition: background 0.15s ease;
     width: 45%;
     &:hover, &:active, &:focus {
         animation: ${ toDoStyledAnimation() } 0.15s linear;
@@ -69,6 +69,7 @@ export const StyledToDoButton = styled.button`
     border: none;
     background: white;
     color: ${ ( { finished } ) => finished ? "darkgreen" : "darkred" };
+    transition: color 0.15s ease;
     border-radius: 3px;
     font-family: inherit;
     font-size: 10pt;

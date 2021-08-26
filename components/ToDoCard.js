@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { toDoStyledAnimation, StyledToDo, StyledToDoContentField, StyledToDoButton } from "../styles/homeStyles";
+import { StyledToDo, StyledToDoContentField, StyledToDoButton } from "../styles/homeStyles";
 
 const saveToDoEdit = async ( { toDoEdits } ) => {
     const response = await fetch( `http://localhost:${ 3001 }/todos/content/${ toDoEdits.id }`, {
@@ -27,6 +27,8 @@ const ToDoCard = ( { todo } ) => {
     const queryClient = new useQueryClient();
 
     const [ toDoEdits, setToDoEdits ] = useState( { ...todo } );
+
+    // useEffect( () => {}, [] );
 
     const saveMutation = useMutation( saveToDoEdit, {
         onSuccess: async updatedToDo => {

@@ -23,7 +23,7 @@ const AddToDoForm = () => {
 
     const [ toDoFormState, setToDoFormState ] = useState( "" );
 
-    const { mutate } = useMutation( handleSubmission, {
+    const addMutation = useMutation( handleSubmission, {
         onSuccess: async newToDo => {
             setToDoFormState( "" );
             await queryClient.cancelQueries( "todos" );
@@ -36,7 +36,7 @@ const AddToDoForm = () => {
     return <StyledForm
         onSubmit={ async submissionEvent => {
             submissionEvent.preventDefault();
-            try { mutate( { toDoFormState } ); }
+            try { addMutation.mutate( { toDoFormState } ); }
             catch ( error ) { console.log( error ); }
         } }
     >
