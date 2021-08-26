@@ -17,6 +17,7 @@ export const StyledMain = styled.main`
   flex-direction: column;
   // justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const StyledGrid = styled.div`
@@ -40,6 +41,7 @@ const toDoStyledAnimation = () => keyframes`
 `;
 
 export const StyledToDo = styled.div`
+    z-index: 2;
     margin: 1rem;
     padding: 1.5rem;
     text-align: left;
@@ -82,6 +84,7 @@ export const StyledToDoButton = styled.button`
 `;
 
 export const StyledForm = styled.form`
+    z-index: 2;
     display: flex;
     flex-direction: row;
 `;
