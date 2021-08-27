@@ -15,7 +15,6 @@ const Cloud = styled.svg`
 `;
 
 const BackgroundAnimation = ( { top } ) => {
-    console.log( top )
 
     return <Cloud
         xmlns="http://www.w3.org/2000/svg"

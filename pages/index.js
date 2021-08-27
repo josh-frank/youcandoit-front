@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
 import AddToDoForm from '../components/AddToDoForm';
-import BackgroundAnimation from '../components/BackgroundAnimation';
+import Filter from '../components/Filter';
 import ToDoCard from '../components/ToDoCard';
-
+// import BackgroundAnimation from '../components/BackgroundAnimation';
 // import HomeFooter from '../components/HomeFooter';
 
 import { StyledGrid, StyledContainer, StyledMain } from "../styles/homeStyles"
@@ -30,10 +30,10 @@ export default function Home() {
 
   return <QueryClientProvider client={ queryClient }>
 
-    <BackgroundAnimation top={ Math.random() * 35 }/>
+    {/* <BackgroundAnimation top={ Math.random() * 35 }/>
     <BackgroundAnimation top={ Math.random() * 55 }/>
     <BackgroundAnimation top={ Math.random() * 75 }/>
-    <BackgroundAnimation top={ Math.random() * 95 }/>
+    <BackgroundAnimation top={ Math.random() * 95 }/> */}
     
     <StyledContainer>
 
@@ -53,7 +53,10 @@ export default function Home() {
           There's so much to do! I believe in you!
         </p>
 
-        <AddToDoForm />
+        <div>
+          <AddToDoForm />
+          <Filter />
+        </div>
         
         <ToDoCards />
 

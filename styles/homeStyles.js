@@ -17,7 +17,7 @@ export const StyledMain = styled.main`
   flex-direction: column;
   // justify-content: center;
   align-items: center;
-  overflow: hidden;
+  // overflow: hidden;
 `;
 
 export const StyledGrid = styled.div`
